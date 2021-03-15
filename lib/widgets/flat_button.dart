@@ -4,7 +4,9 @@ import 'package:notes/shared/styles.dart';
 
 class FlatButtonHelper extends StatelessWidget {
   final String text;
-  const FlatButtonHelper({Key key, this.text}) : super(key: key);
+  final Function onPressed;
+  const FlatButtonHelper({Key key, this.text, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class FlatButtonHelper extends StatelessWidget {
         height: 70,
         width: MediaQuery.of(context).size.width,
         child: TextButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(primarySwatchColor),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
