@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/screens/bottom_navigation_page.dart';
+import 'package:notes/screens/sign_up.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +16,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BottomNavigationPage());
+        home: SignInPage());
   }
 }
