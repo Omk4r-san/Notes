@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/shared/styles.dart';
 import 'package:notes/widgets/flat_button.dart';
+import 'package:notes/widgets/text_form_field.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key key}) : super(key: key);
@@ -42,25 +43,16 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(
                   height: 70,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                    ),
-                  ),
+                TextFormFieldHelper(
+                  hintText: "Email",
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                    ),
-                  ),
+                TextFormFieldHelper(
+                  hintText: "Password",
                 ),
                 Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: FlatButtonHelper(text: "Done", onPressed: () {})),
+                    child:
+                        FlatButtonHelper(text: "Register", onPressed: () {})),
               ])))
         ]));
   }

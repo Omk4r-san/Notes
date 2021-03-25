@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notes/screens/bottom_navigation_page.dart';
 import 'package:notes/screens/sign_up.dart';
 
 void main() {

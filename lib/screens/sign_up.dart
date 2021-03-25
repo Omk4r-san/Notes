@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:notes/screens/bottom_navigation_page.dart';
-import 'package:notes/screens/notes_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes/screens/regsiter.dart';
 import 'package:notes/shared/styles.dart';
 import 'package:notes/widgets/flat_button.dart';
+import 'package:notes/widgets/text_form_field.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  String _email, _password;
+  final GlobalKey<FormState> _fromkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,56 +55,30 @@ class SignInPage extends StatelessWidget {
                 SizedBox(
                   height: 70,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 15.0),
-                      fillColor: fillColor,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: backgroundColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(15.0),
+                Form(
+                  key: _fromkey,
+                  child: Column(
+                    children: [
+                      TextFormFieldHelper(
+                        hintText: "Email",
+                        validator: (input) {
+                          if (input.isEmpty) {
+                            return 'Please enter an email';
+                          }
+                        },
+                        onSaved: (input) => _email = input,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: backgroundColor, width: 0.0),
-                        borderRadius: BorderRadius.circular(15.0),
+                      TextFormFieldHelper(
+                        obscureText: true,
+                        hintText: "Password",
+                        validator: (input) {
+                          if (input.length < 8) {
+                            return 'Please provide password';
+                          }
+                        },
+                        onSaved: (input) => _password = input,
                       ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(width: 1.0, color: Colors.red)),
-                      hintText: "Email",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 15.0),
-                      fillColor: fillColor,
-                      filled: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: backgroundColor, width: 1.0),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: backgroundColor, width: 0.0),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide:
-                              BorderSide(width: 1.0, color: Colors.red)),
-                      hintText: "Password",
-                    ),
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -104,10 +88,10 @@ class SignInPage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: FlatButtonHelper(
                       text: "Sign In",
-                      onPressed: () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNavigationPage())),
+                      onPressed: () {
+                        signIn();
+                        print(_email);
+                      },
                     )),
                 SizedBox(
                   height: 20,
@@ -141,5 +125,20 @@ class SignInPage extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  Future<void> signIn() async {
+    final fromState = _fromkey.currentState;
+    if (fromState.validate()) {
+      try {
+        fromState.save();
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BottomNavigationPage()));
+      } catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
