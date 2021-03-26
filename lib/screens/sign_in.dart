@@ -130,8 +130,9 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> signIn() async {
     final fromState = _fromkey.currentState;
     if (fromState.validate()) {
+      fromState.save();
+
       try {
-        fromState.save();
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
         Navigator.push(context,
