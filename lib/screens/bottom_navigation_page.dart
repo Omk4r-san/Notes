@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:notes/screens/add_notes_page.dart';
 import 'package:notes/screens/notes_page.dart';
 import 'package:notes/shared/styles.dart';

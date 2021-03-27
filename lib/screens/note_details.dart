@@ -3,9 +3,15 @@ import 'package:notes/shared/styles.dart';
 import 'package:notes/widgets/flat_button.dart';
 import 'package:unicons/unicons.dart';
 
-class NoteDetails extends StatelessWidget {
-  const NoteDetails({Key key}) : super(key: key);
+class NoteDetails extends StatefulWidget {
+  final String title, noteDetail;
+  const NoteDetails({Key key, this.title, this.noteDetail}) : super(key: key);
 
+  @override
+  _NoteDetailsState createState() => _NoteDetailsState();
+}
+
+class _NoteDetailsState extends State<NoteDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +34,7 @@ class NoteDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, left: 10.0),
                 child: Text(
-                  "Title of the Note",
+                  widget.title,
                   style: titlelabelStyle.copyWith(fontSize: 22),
                 ),
               ),
@@ -56,7 +62,7 @@ class NoteDetails extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                          widget.noteDetail,
                           style: subtitlelabelStyle,
                         ),
                       ),

@@ -138,7 +138,9 @@ class _SignInPageState extends State<SignInPage> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BottomNavigationPage()));
       } catch (e) {
-        print(e.message);
+        SnackBar(
+          content: Text(e.toString()),
+        );
       }
     }
   }
