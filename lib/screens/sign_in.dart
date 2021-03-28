@@ -135,7 +135,7 @@ class _SignInPageState extends State<SignInPage> {
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigationPage()));
       } catch (e) {
         SnackBar(

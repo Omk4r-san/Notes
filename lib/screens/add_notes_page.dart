@@ -15,7 +15,7 @@ class AddNotesPage extends StatefulWidget {
 class _AddNotesPageState extends State<AddNotesPage> {
   // List note = [];
   // String input = "";
-  QuerySnapshot note;
+  Stream note;
   String _notetitle, _notedescription;
 
   CrudMethods crudObj = new CrudMethods();
@@ -31,18 +31,6 @@ class _AddNotesPageState extends State<AddNotesPage> {
     });
     super.initState();
   }
-
-  // addNote() {
-  //   DocumentReference documentReference =
-  //       Firestore.instance.collection("Notes").document(input);
-  //   // Mapping
-  //   Map<String, String> notes = {};
-  //   documentReference.setData(notes).whenComplete(() {
-  //     print("$input created");
-  //   });
-  // }
-
-  // deletenote() {}
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +91,6 @@ class _AddNotesPageState extends State<AddNotesPage> {
                   }).catchError((e) {
                     print(e);
                   });
-                  // note.add({
-                  //   "title": _titleController.text.toString(),
-                  //   "Note": _noteController.text.toString()
-                  // });
-
-                  // print(note);
 
                   setState(() {
                     _titleController.clear();

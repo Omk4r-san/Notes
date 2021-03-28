@@ -20,7 +20,18 @@ class CrudMethods {
     }
   }
 
-  getData() async {
-    return Firestore.instance.collection('notes').getDocuments();
+  Future<Stream> getData() async {
+    Stream result = await Firestore.instance.collection('notes').snapshots();
+    return result;
+  }
+
+  deleteData(noteId) async {
+    return Firestore.instance
+        .collection('notes')
+        .document(noteId)
+        .delete()
+        .catchError((e) {
+      print(e);
+    });
   }
 }

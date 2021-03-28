@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:notes/services/crud.dart';
 import 'package:notes/shared/styles.dart';
 import 'package:notes/widgets/flat_button.dart';
 import 'package:unicons/unicons.dart';
 
 class NoteDetails extends StatefulWidget {
-  final String title, noteDetail;
-  const NoteDetails({Key key, this.title, this.noteDetail}) : super(key: key);
+  final String title, noteDetail, noteId;
+
+  const NoteDetails({Key key, this.title, this.noteDetail, this.noteId})
+      : super(key: key);
 
   @override
   _NoteDetailsState createState() => _NoteDetailsState();
 }
 
 class _NoteDetailsState extends State<NoteDetails> {
+  CrudMethods crudobj = new CrudMethods();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +77,13 @@ class _NoteDetailsState extends State<NoteDetails> {
               SizedBox(
                 height: 15,
               ),
-              FlatButtonHelper(text: "Delete")
+              FlatButtonHelper(
+                text: "Delete",
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  crudobj.deleteData(widget.noteId);
+                },
+              )
             ],
           ),
         ));
